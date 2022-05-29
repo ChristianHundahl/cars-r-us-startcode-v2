@@ -58,6 +58,7 @@ public class MakeTestData implements ApplicationRunner {
     carRepository.save(new Car("Suzuki", "S-Cross", 500, 14));
     Car xceed = carRepository.save(new Car("Kia", "XCeed", 500, 18));
     Car proCeed = carRepository.save(new Car("Kia", "ProCeed", 700, 16));
+    Car modelT = carRepository.save(new Car("Ford", "Model T", 700, 16));
 
     //Create a Reservation
     reservationRepository.save(new Reservation(LocalDate.of(2022, 3, 1), carVolvo, m1));

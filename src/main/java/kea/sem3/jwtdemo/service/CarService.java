@@ -6,6 +6,8 @@ import kea.sem3.jwtdemo.dto.MemberResponse;
 import kea.sem3.jwtdemo.entity.Car;
 import kea.sem3.jwtdemo.error.Client4xxException;
 import kea.sem3.jwtdemo.repositories.CarRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +25,17 @@ public class CarService {
         List<Car> cars =  carRepository.findAll();
         return CarResponse.getCarsFromEntities(cars);
     }
+
+    public long getTotal() {
+        return carRepository.count();
+    }
+
+    //Create Pageable method:
+    public List<CarResponse> getCars(Pageable pageable){//Import from org.springframework.data
+        Page<Car> cars =  carRepository.findAll(pageable);
+        return CarResponse.getCarsFromEntities(cars.getContent());
+    }
+
     public CarResponse getCar(int id,boolean all) throws Exception {
         Car car = carRepository.findById(id).orElseThrow(()->new Client4xxException("No car with this id exists"));
         return new CarResponse(car,false);
